@@ -238,13 +238,10 @@ map("n", "<leader>cn", "<cmd>GitConflictNextConflict<CR>", { desc = "跳到下�
 map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "打开 LazyGit" })
 
 vim.keymap.set("n", "<leader>mp", "<cmd>!glow %<CR>", { desc = "Preview Markdown in terminal" })
+
 -- Customizing the Gblame highlight groups
-vim.cmd([[
-  highlight GitBlameVirtualText ctermfg=white guifg=white  " Change text color for blame info
-  highlight GitBlameDate ctermfg=yellow guifg=yellow      " Change date color
-  highlight GitBlameAuthor ctermfg=cyan guifg=cyan         " Change author color
-  highlight GitBlameMessage ctermfg=green guifg=green      " Change commit message color
-]])
+-- Set custom colors for blame text
+vim.api.nvim_set_hl(0, "GitsignsCurrentLineBlame", { fg = "#ff79c6", bg = "#282a36" })
 
 vim.opt.tabstop = 4 -- 设定 Tab 宽度为 4
 vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
