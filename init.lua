@@ -22,7 +22,11 @@ require("lazy").setup({
   { "hrsh7th/cmp-path" },
   { "hrsh7th/cmp-cmdline" },
   { "simrat39/rust-tools.nvim" }, -- Rust-specific tools
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", dependencies = { "nvim-lua/plenary.nvim" } }, -- Syntax highlighting
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  }, -- Syntax highlighting
   { "nvim-telescope/telescope.nvim" }, -- Fuzzy Finder,
   { "nvim-tree/nvim-tree.lua" },
   { "nvim-tree/nvim-web-devicons" },
@@ -83,6 +87,7 @@ require("lazy").setup({
     end,
   },
 
+  -- lua snippet lint fmt
   "saadparwaiz1/cmp_luasnip",
   "L3MON4D3/LuaSnip",
   {
@@ -98,19 +103,21 @@ require("lazy").setup({
       })
     end,
   },
-  {
-    "mfussenegger/nvim-lint",
-    config = function()
-      require("lint").linters_by_ft = {
-        lua = { "luacheck" },
-      }
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        callback = function()
-          require("lint").try_lint()
-        end,
-      })
-    end,
-  },
+  "mfussenegger/nvim-lint",
+})
+
+require("lint").linters_by_ft = {
+  lua = { "luacheck" }, -- Tell nvim-lint to use luacheck for lua files
+}
+
+-- Add custom arguments to luacheck for globals directly in the setup
+require("lint").linters.luacheck.args = { "--globals", "vim", "--std", "lua" }
+
+-- Set up an autocommand to trigger linting on file save
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint() -- Run linting
+  end,
 })
 
 require("nvim-tree").setup({
@@ -133,14 +140,15 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-
 -- Add Treesitter for syntax highlighting
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "rust", "javascript", "typescript", "tsx", "html", "css" },
   highlight = { enable = true },
   indent = { enable = true }, -- Auto-indent support
 })
+
+-- Enable LSP
+local lspconfig = require("lspconfig")
 
 local on_attach = function(_, bufnr)
   -- 按键映射（可选）
@@ -152,16 +160,12 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 end
 
--- Enable LSP
-local lspconfig = require("lspconfig")
-
 -- Rust LSP 配置
 require("rust-tools").setup({
   server = {
     on_attach = on_attach,
     settings = {
       ["rust-analyzer"] = {
-        cargo = { allFeatures = true },
         checkOnSave = { command = "clippy" },
         cargo = {
           allFeatures = true,
@@ -237,12 +241,16 @@ map("n", "<leader>cn", "<cmd>GitConflictNextConflict<CR>", { desc = "跳到下�
 -- LazyGit UI
 map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "打开 LazyGit" })
 
-vim.keymap.set("n", "<leader>mp", "<cmd>!glow %<CR>", { desc = "Preview Markdown in terminal" })
+-- Preview markdown
+map("n", "<leader>mp", "<cmd>!glow %<CR>", { desc = "Preview Markdown in terminal" })
 
--- Customizing the Gblame highlight groups
+-- Toggle tree log
+map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+
 -- Set custom colors for blame text
 vim.api.nvim_set_hl(0, "GitsignsCurrentLineBlame", { fg = "#ff79c6", bg = "#282a36" })
 
+vim.opt.number = true
 vim.opt.tabstop = 4 -- 设定 Tab 宽度为 4
 vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
 vim.opt.expandtab = true -- 使用空格替代 Tab
