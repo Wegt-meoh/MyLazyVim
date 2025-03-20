@@ -104,6 +104,10 @@ require("lazy").setup({
     end,
   },
   "mfussenegger/nvim-lint",
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
 })
 
 require("lint").linters_by_ft = {
@@ -246,6 +250,23 @@ map("n", "<leader>mp", "<cmd>!glow %<CR>", { desc = "Preview Markdown in termina
 
 -- Toggle tree log
 map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+
+local telescope = require("telescope")
+telescope.setup({
+  defaults = {
+    -- Your default options here
+    mappings = {
+      i = {
+        ["<C-n>"] = "move_selection_next",
+        ["<C-p>"] = "move_selection_previous",
+      },
+    },
+  },
+})
+
+-- search filename or content
+map("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
+map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
 
 -- Set custom colors for blame text
 vim.api.nvim_set_hl(0, "GitsignsCurrentLineBlame", { fg = "#ff79c6", bg = "#282a36" })
