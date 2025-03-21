@@ -1,3 +1,5 @@
+local map = vim.keymap.set
+
 -- Install lazy.nvim (plugin manager)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -154,14 +156,18 @@ require("nvim-treesitter.configs").setup({
 -- Enable LSP
 local lspconfig = require("lspconfig")
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
 local on_attach = function(_, bufnr)
   -- 按键映射（可选）
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+  map("n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+  map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 end
 
 -- Rust LSP 配置
@@ -213,8 +219,6 @@ cmp.setup({
     { name = "path" },
   },
 })
-
-local map = vim.keymap.set
 
 -- Git 状态（左侧标记 + 变更操作）
 map("n", "]c", "<cmd>Gitsigns next_hunk<CR>", { desc = "跳到下一个 Git 变更" })
@@ -275,3 +279,12 @@ vim.opt.number = true
 vim.opt.tabstop = 4 -- 设定 Tab 宽度为 4
 vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
 vim.opt.expandtab = true -- 使用空格替代 Tab
+
+vim.diagnostic.config({
+  virtual_text = false, -- Disable inline text
+  float = { border = "rounded" }, -- Use a floating window
+})
+
+vim.keymap.set("n", "K", function()
+  vim.diagnostic.open_float(nil, { border = "rounded" })
+end, { noremap = true, silent = true })
