@@ -17,12 +17,19 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       lspconfig.rust_analyzer.setup({
-        filetypes = { "rs" },
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           ["rust-analyzer"] = {
-            diagnostics = { enable = false },
+            checkOnSave = {
+              command = "clippy", -- Use `clippy` for advanced linting on save
+            },
+            cargo = {
+              allFeatures = true, -- Enable all Cargo features
+            },
+            diagnostics = {
+              enable = true, -- Enable diagnostics (lint-like messages)
+            },
           },
         },
       })
