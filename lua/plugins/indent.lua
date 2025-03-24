@@ -32,10 +32,6 @@ return {
     require("ibl").setup({
       indent = { highlight = highlight, char = "¦" },
       scope = {
-        enabled = true, -- 启用当前作用域高亮
-        show_start = false, -- 禁止高亮整个作用域
-        show_end = false,
-        injected_languages = false,
         highlight = { "CursorLineNr" }, -- 仅在光标行显示
       },
     })
