@@ -16,7 +16,7 @@ return {
             local lspconfig = require("lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local servers = { "ts_ls", "html", "cssls" }
+            local servers = { "ts_ls", "html", "cssls", "jsonls" }
             for _, lsp in ipairs(servers) do
                 lspconfig[lsp].setup({
                     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Enable autocompletion
