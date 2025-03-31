@@ -40,3 +40,4 @@ map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 -- search filename or content
 map("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
 map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code [A]ction" })
