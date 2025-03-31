@@ -21,6 +21,7 @@ return {
                 },
                 highlight = { enable = true },
                 indent = { enable = true }, -- Auto-indent support
+                fold = { enable = true },
             })
         end,
     },
