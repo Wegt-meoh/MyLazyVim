@@ -1,7 +1,7 @@
 local map = vim.keymap.set
-local on_attach = function(client, buffer)
+local on_attach = function(_, buffer)
     -- Disable LSP Diagnostics (Linting)
-    --    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
     local opts = { noremap = true, silent = true, buffer = buffer }
     map("n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -78,10 +78,10 @@ return {
 
                     -- 🔍 Linters
                     require("none-ls.diagnostics.eslint_d"), -- JavaScript/TypeScript
-                    null_ls.builtins.diagnostics.selene, -- Lua
+                    null_ls.builtins.diagnostics.selene,     -- Lua
 
                     -- 🔧 Code Actions
-                    null_ls.builtins.code_actions.gitsigns, -- Git staging actions
+                    null_ls.builtins.code_actions.gitsigns,   -- Git staging actions
                     require("none-ls.code_actions.eslint_d"), -- JavaScript/TypeScript
                 },
                 on_attach = function(_, bufnr)
