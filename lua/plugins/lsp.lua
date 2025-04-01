@@ -1,5 +1,11 @@
 local map = vim.keymap.set
-local on_attach = function(_, buffer)
+local on_attach = function(client, buffer)
+    -- Disable LSP Formatting
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+
+    -- Disable LSP Diagnostics (Linting)
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
     local opts = { noremap = true, silent = true, buffer = buffer }
     map("n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -16,7 +22,7 @@ return {
             local lspconfig = require("lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local servers = { "ts_ls", "html", "cssls", "jsonls" }
+            local servers = { "ts_ls", "html", "cssls", "jsonls", "lua_ls" }
             for _, lsp in ipairs(servers) do
                 lspconfig[lsp].setup({
                     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Enable autocompletion
