@@ -1,7 +1,13 @@
 local map = vim.keymap.set
-local on_attach = function(_, buffer)
+
+local no_diagnostic_servers = { "ts_ls", "html", "cssls", "jsonls", "lua_ls" }
+local on_attach = function(client, buffer)
     -- Disable LSP Diagnostics (Linting)
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+    if vim.tbl_contains(no_diagnostic_servers, client.name) then
+        client.server_capabilities.diagnosticsProvider = false
+        vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+    end
+
     local opts = { noremap = true, silent = true, buffer = buffer }
     map("n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -18,18 +24,10 @@ return {
             local lspconfig = require("lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local servers = { "ts_ls", "html", "cssls", "jsonls", "lua_ls" }
-            for _, lsp in ipairs(servers) do
+            for _, lsp in ipairs(no_diagnostic_servers) do
                 lspconfig[lsp].setup({
                     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Enable autocompletion
                     on_attach = on_attach,
-                    settings = {
-                        [lsp] = {
-                            diagnostics = {
-                                enable = false,
-                            },
-                        },
-                    },
                 })
             end
 
