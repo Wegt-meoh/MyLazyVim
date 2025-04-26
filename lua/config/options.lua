@@ -22,3 +22,6 @@ vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo.foldlevel = 99 -- Start with all folds open
 
 vim.o.winborder = "rounded"
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
