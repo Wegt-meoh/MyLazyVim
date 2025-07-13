@@ -1,6 +1,6 @@
 local map = vim.keymap.set
 
-local no_diagnostic_servers = { "ts_ls", "html", "cssls", "jsonls", "lua_ls" }
+local no_diagnostic_servers = { "ts_ls", "html", "cssls", "jsonls", "lua_ls", "pyright" }
 local on_attach = function(client, buffer)
     -- Disable LSP Diagnostics (Linting)
     if vim.tbl_contains(no_diagnostic_servers, client.name) then
@@ -77,6 +77,7 @@ return {
                     -- 🔍 Linters
                     require("none-ls.diagnostics.eslint_d"), -- JavaScript/TypeScript
                     null_ls.builtins.diagnostics.selene,     -- Lua
+                    null_ls.builtins.diagnostics.flake8,     -- python
 
                     -- 🔧 Code Actions
                     null_ls.builtins.code_actions.gitsigns,   -- Git staging actions
