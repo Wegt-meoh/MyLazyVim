@@ -2,7 +2,7 @@ return {
     -- Mason
     {
         "williamboman/mason.nvim",
-        opts = { ensure_installed = { "black", "flake8" } },
+        opts = { ensure_installed = { "black", "pyright", "eslint_d", "mypy" } },
         ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
@@ -33,11 +33,10 @@ return {
         dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "pyright" },
                 handlers = {
                     function(server_name)
                         require("lspconfig")[server_name].setup({
-                            on_attach = function(client, bufnr)
+                            on_attach = function(client)
                                 client.server_capabilities.documentFormattingProvider = false -- Let none-ls handle formatting
                             end,
                         })
