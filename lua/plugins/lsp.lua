@@ -77,7 +77,7 @@ return {
                     -- 🔍 Linters
                     require("none-ls.diagnostics.eslint_d"), -- JavaScript/TypeScript
                     null_ls.builtins.diagnostics.selene,     -- Lua
-                    null_ls.builtins.diagnostics.flake8,     -- python
+                    null_ls.builtins.diagnostics.mypy,       -- python
 
                     -- 🔧 Code Actions
                     null_ls.builtins.code_actions.gitsigns,   -- Git staging actions
