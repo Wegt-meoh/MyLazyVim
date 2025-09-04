@@ -2,7 +2,7 @@ return {
     -- Mason
     {
         "williamboman/mason.nvim",
-        opts = { ensure_installed = { "black", "pyright", "eslint_d", "mypy" } },
+        opts = { ensure_installed = { "black", "pyright", "eslint_d", "mypy", "shfmt" } },
         ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
