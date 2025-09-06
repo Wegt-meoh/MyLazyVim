@@ -98,6 +98,8 @@ return {
                             local diagnostics = vim.diagnostic.get()
                             if #diagnostics > 0 then
                                 vim.cmd("copen") -- Open Quickfix List if there are errors/warnings
+                            else
+                                vim.cmd("cclose")
                             end
                         end,
                     })
