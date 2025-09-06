@@ -24,3 +24,9 @@ map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 map("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
 map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code [A]ction" })
+
+-- Quick fix list
+map('n', '<leader>qo', ':copen<CR>', { noremap = true, silent = true, desc = 'Open quickfix list' })
+map('n', '<leader>qc', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close quickfix list' })
+map('n', '<leader>qp', ':colder<CR>', { noremap = true, silent = true, desc = 'Previous quickfix list' })
+map('n', '<leader>qn', ':cnewer<CR>', { noremap = true, silent = true, desc = 'Next quickfix list' })
