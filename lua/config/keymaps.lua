@@ -14,9 +14,6 @@ map("n", "<leader>gq", "<cmd>DiffviewClose<CR>", { desc = "关闭 Git Diff 视�
 -- LazyGit UI
 map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "打开 LazyGit" })
 
--- Preview markdown
-map("n", "<leader>mp", "<cmd>!glow %<CR>", { desc = "Preview Markdown in terminal" })
-
 -- Toggle tree log
 map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 
