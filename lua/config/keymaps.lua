@@ -27,3 +27,8 @@ map('n', '<leader>qo', ':copen<CR>', { noremap = true, silent = true, desc = 'Op
 map('n', '<leader>qc', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close quickfix list' })
 map('n', '<leader>qp', ':colder<CR>', { noremap = true, silent = true, desc = 'Previous quickfix list' })
 map('n', '<leader>qn', ':cnewer<CR>', { noremap = true, silent = true, desc = 'Next quickfix list' })
+
+-- markdown preview
+map('n', '<leader>mp', ':MarkdownPreview<CR>', { noremap = true, silent = true, desc = 'MarkdownPreview' })
+map('n', '<leader>ms', ':MarkdownPreviewStop<CR>', { noremap = true, silent = true, desc = 'MarkdownPreviewStop' })
+map('n', '<leader>mt', ':MarkdownPreviewToggle<CR>', { noremap = true, silent = true, desc = 'MarkdownPreviewToggle' })
