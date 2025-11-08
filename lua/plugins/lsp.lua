@@ -21,17 +21,18 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local lspconfig = require("lspconfig")
+            local lspconfig = vim.lsp.config
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             for _, lsp in ipairs(no_diagnostic_servers) do
-                lspconfig[lsp].setup({
+                lspconfig(lsp, {
                     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Enable autocompletion
                     on_attach = on_attach,
                 })
+                vim.lsp.enable(lsp)
             end
 
-            lspconfig.rust_analyzer.setup({
+            lspconfig("rust_analyzer", {
                 on_attach = on_attach,
                 capabilities = capabilities,
                 settings = {
@@ -45,8 +46,9 @@ return {
                     },
                 },
             })
+            vim.lsp.enable("rust_analyzer")
 
-            lspconfig.yamlls.setup({
+            lspconfig("yamlls", {
                 cmd = { "yaml-language-server", "--stdio" },
                 filetypes = { "yaml", "yml" },
                 on_attach = on_attach,
@@ -60,6 +62,7 @@ return {
                     },
                 },
             })
+            vim.lsp.enable("yamlls")
         end,
     },
 

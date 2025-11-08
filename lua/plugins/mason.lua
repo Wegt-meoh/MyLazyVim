@@ -35,11 +35,12 @@ return {
             require("mason-lspconfig").setup({
                 handlers = {
                     function(server_name)
-                        require("lspconfig")[server_name].setup({
+                        vim.lsp.config(server_name,{
                             on_attach = function(client)
                                 client.server_capabilities.documentFormattingProvider = false -- Let none-ls handle formatting
                             end,
                         })
+                        vim.lsp.enable(server_name)
                     end,
                 },
             })
