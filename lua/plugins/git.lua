@@ -16,25 +16,6 @@ return {
         end,
     },
 
-    -- Git 交互界面（`G`、`Gdiffsplit`、`Gblame`）
-    "tpope/vim-fugitive",
-
-    {
-        -- Git Diff 视图（查看变更历史）
-        "sindrets/diffview.nvim",
-        config = function()
-            require("diffview").setup({})
-        end,
-    },
-
-    {
-        -- 解决 Git 冲突
-        "akinsho/git-conflict.nvim",
-        config = function()
-            require("git-conflict").setup()
-        end,
-    },
-
     {
         -- Git UI（LazyGit）
         "kdheepak/lazygit.nvim",
