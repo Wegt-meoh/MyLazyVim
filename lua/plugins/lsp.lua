@@ -26,7 +26,7 @@ return {
 
             for _, lsp in ipairs(no_diagnostic_servers) do
                 lspconfig(lsp, {
-                    capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Enable autocompletion
+                    capabilities = capabilities,
                     on_attach = on_attach,
                 })
                 vim.lsp.enable(lsp)
