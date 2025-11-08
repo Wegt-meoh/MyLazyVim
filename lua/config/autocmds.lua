@@ -14,3 +14,8 @@
 --     vim.diagnostic.setqflist() -- Update quickfix list with linting diagnostics
 --   end,
 -- })
+--
+-- Custom :W command: Saves without formatting/autocmds (bypasses BufWritePre)
+vim.api.nvim_create_user_command("W", function()
+    vim.cmd("noautocmd write")
+end, { force = true, desc = "Save without formatting/autocmds" })
