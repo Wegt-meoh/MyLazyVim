@@ -69,6 +69,14 @@ return {
                 },
             })
             vim.lsp.enable("yamlls")
+
+            lspconfig("clangd", {
+                cmd = { "clangd", "--fallback-style=WebKit" },
+                filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+                on_attach = no_diagnostic_on_attach,
+                capabilities = capabilities,
+            })
+            vim.lsp.enable("clangd")
         end,
     },
 
