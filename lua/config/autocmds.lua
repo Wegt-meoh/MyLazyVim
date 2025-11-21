@@ -19,3 +19,23 @@
 vim.api.nvim_create_user_command("W", function()
     vim.cmd("noautocmd write")
 end, { force = true, desc = "Save without formatting/autocmds" })
+
+-- Your exact classic keymaps (unchanged forever)
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(ev)
+        local map = function(m, l, r, desc)
+            vim.keymap.set(m, l, r, { buffer = ev.buf, desc = "LSP: " .. desc })
+        end
+
+        map("n", "gk", vim.lsp.buf.hover, "Hover")
+        map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+        map("n", "gr", vim.lsp.buf.references, "Find references")
+        map("n", "gt", vim.lsp.buf.type_definition, "Go to type definition")
+        map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+        map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+        map("n", "<leader>f", function()
+            vim.lsp.buf.format({ async = false })
+        end, "Format buffer")
+    end,
+})

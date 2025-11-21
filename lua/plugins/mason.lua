@@ -2,7 +2,6 @@ return {
     -- Mason
     {
         "williamboman/mason.nvim",
-        opts = { ensure_installed = { "black", "pyright", "eslint_d", "mypy", "shfmt" } },
         ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
@@ -26,6 +25,20 @@ return {
                 end
             end)
         end,
+        opts = {
+            ensure_installed = {
+                "clangd",
+                "vtsls",
+                "rust-analyzer",
+                "lua-language-server",
+                "bash-language-server",
+                "html-lsp",
+                "css-lsp",
+                "json-lsp",
+                "yaml-language-server",
+                "eslint_d",
+            },
+        },
     },
     -- Mason-LSPConfig
     {
@@ -35,7 +48,7 @@ return {
             require("mason-lspconfig").setup({
                 handlers = {
                     function(server_name)
-                        vim.lsp.config(server_name,{
+                        vim.lsp.config(server_name, {
                             on_attach = function(client)
                                 client.server_capabilities.documentFormattingProvider = false -- Let none-ls handle formatting
                             end,
