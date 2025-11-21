@@ -36,6 +36,7 @@ return {
                 on_attach = no_diagnostic_on_attach,
                 format = { enable = false },
             })
+            vim.lsp.enable("lua_ls")
 
             lspconfig("rust_analyzer", {
                 on_attach = no_diagnostic_on_attach,
@@ -79,17 +80,17 @@ return {
             null_ls.setup({
                 sources = {
                     -- 🖊️ Formatters
-                    null_ls.builtins.formatting.black, -- Python
-                    null_ls.builtins.formatting.shfmt, -- Shell
+                    null_ls.builtins.formatting.black,  -- Python
+                    null_ls.builtins.formatting.shfmt,  -- Shell
                     null_ls.builtins.formatting.stylua, -- lua
 
                     -- 🔍 Linters
                     require("none-ls.diagnostics.eslint_d"), -- JavaScript/TypeScript
-                    null_ls.builtins.diagnostics.selene, -- Lua
-                    null_ls.builtins.diagnostics.mypy, -- python
+                    null_ls.builtins.diagnostics.selene,     -- Lua
+                    null_ls.builtins.diagnostics.mypy,       -- python
 
                     -- 🔧 Code Actions
-                    null_ls.builtins.code_actions.gitsigns, -- Git staging actions
+                    null_ls.builtins.code_actions.gitsigns,   -- Git staging actions
                     require("none-ls.code_actions.eslint_d"), -- JavaScript/TypeScript
                 },
                 on_attach = function(_, bufnr)
