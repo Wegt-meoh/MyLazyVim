@@ -23,12 +23,24 @@ map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code [A]ction" })
 
 -- Quick fix list
-map('n', '<leader>qo', ':copen<CR>', { noremap = true, silent = true, desc = 'Open quickfix list' })
-map('n', '<leader>qc', ':cclose<CR>', { noremap = true, silent = true, desc = 'Close quickfix list' })
-map('n', '<leader>qp', ':colder<CR>', { noremap = true, silent = true, desc = 'Previous quickfix list' })
-map('n', '<leader>qn', ':cnewer<CR>', { noremap = true, silent = true, desc = 'Next quickfix list' })
+-- Toggle quickfix list
+map("n", "<leader>q", function()
+    local qf_exists = false
+    for _, win in pairs(vim.fn.getwininfo()) do
+        if win.quickfix == 1 then
+            qf_exists = true
+        end
+    end
+    if qf_exists then
+        vim.cmd.cclose()
+    else
+        vim.cmd.copen()
+    end
+end, { desc = "Toggle quickfix list" })
+map("n", "[q", ":colder<CR>", { noremap = true, silent = true, desc = "Previous quickfix list" })
+map("n", "]q", ":cnewer<CR>", { noremap = true, silent = true, desc = "Next quickfix list" })
 
 -- markdown preview
-map('n', '<leader>mp', ':MarkdownPreview<CR>', { noremap = true, silent = true, desc = 'MarkdownPreview' })
-map('n', '<leader>ms', ':MarkdownPreviewStop<CR>', { noremap = true, silent = true, desc = 'MarkdownPreviewStop' })
-map('n', '<leader>mt', ':MarkdownPreviewToggle<CR>', { noremap = true, silent = true, desc = 'MarkdownPreviewToggle' })
+map("n", "<leader>mp", ":MarkdownPreview<CR>", { noremap = true, silent = true, desc = "MarkdownPreview" })
+map("n", "<leader>ms", ":MarkdownPreviewStop<CR>", { noremap = true, silent = true, desc = "MarkdownPreviewStop" })
+map("n", "<leader>mt", ":MarkdownPreviewToggle<CR>", { noremap = true, silent = true, desc = "MarkdownPreviewToggle" })
