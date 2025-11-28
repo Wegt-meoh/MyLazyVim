@@ -24,7 +24,7 @@ map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code [A]ction" })
 
 -- Quick fix list
 -- Toggle quickfix list
-map("n", "<leader>q", function()
+map("n", "<leader>l", function()
     local qf_exists = false
     for _, win in pairs(vim.fn.getwininfo()) do
         if win.quickfix == 1 then
@@ -37,8 +37,8 @@ map("n", "<leader>q", function()
         vim.cmd.copen()
     end
 end, { desc = "Toggle quickfix list" })
-map("n", "[q", ":colder<CR>", { noremap = true, silent = true, desc = "Previous quickfix list" })
-map("n", "]q", ":cnewer<CR>", { noremap = true, silent = true, desc = "Next quickfix list" })
+map("n", "[l", ":colder<CR>", { noremap = true, silent = true, desc = "Previous quickfix list" })
+map("n", "]l", ":cnewer<CR>", { noremap = true, silent = true, desc = "Next quickfix list" })
 
 -- markdown preview
 map("n", "<leader>mp", ":MarkdownPreview<CR>", { noremap = true, silent = true, desc = "MarkdownPreview" })
