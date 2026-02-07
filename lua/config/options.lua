@@ -4,8 +4,8 @@
 vim.api.nvim_set_hl(0, "GitsignsCurrentLineBlame", { fg = "#ff79c6", bg = "#282a36" })
 
 vim.opt.number = true
-vim.opt.tabstop = 4      -- 设定 Tab 宽度为 4
-vim.opt.shiftwidth = 4   -- 自动缩进的宽度也是 4
+vim.opt.tabstop = 4 -- 设定 Tab 宽度为 4
+vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
 vim.opt.expandtab = true -- 使用空格替代 Tab
 
 vim.diagnostic.config({
@@ -25,3 +25,7 @@ vim.o.winborder = "rounded"
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- status line
+vim.opt.laststatus = 3
+vim.o.statusline = "%<%f%m%r%h%w  │  %{&ft==''?'[no ft]':&ft}  │  %l:%c  %p%%/%L"
