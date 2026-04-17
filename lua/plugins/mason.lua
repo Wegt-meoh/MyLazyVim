@@ -29,7 +29,6 @@ return {
             ensure_installed = {
                 "clangd",
                 "vtsls",
-                "rust-analyzer",
                 "lua-language-server",
                 "bash-language-server",
                 "html-lsp",
