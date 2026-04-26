@@ -17,20 +17,6 @@ map("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = t
 map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
 
 -- Quick fix list
--- Toggle quickfix list
-map("n", "<leader>l", function()
-    local qf_exists = false
-    for _, win in pairs(vim.fn.getwininfo()) do
-        if win.quickfix == 1 then
-            qf_exists = true
-        end
-    end
-    if qf_exists then
-        vim.cmd.cclose()
-    else
-        vim.cmd.copen()
-    end
-end, { desc = "Toggle quickfix list" })
 map("n", "[l", ":colder<CR>", { noremap = true, silent = true, desc = "Previous quickfix list" })
 map("n", "]l", ":cnewer<CR>", { noremap = true, silent = true, desc = "Next quickfix list" })
 
