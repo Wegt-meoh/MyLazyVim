@@ -25,6 +25,10 @@ return {
                 indent = { enable = true }, -- Auto-indent support
                 injections = { enable = true },
                 fold = { enable = true },
+                modules = {}, -- For additional Treesitter modules
+                sync_install = false, -- Install parsers synchronously
+                ignore_install = {}, -- Parsers to ignore installing
+                auto_install = false, -- Auto-install missing parsers when entering buffer
             })
         end,
     },
