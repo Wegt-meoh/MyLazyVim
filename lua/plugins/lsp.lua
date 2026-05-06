@@ -39,7 +39,7 @@ return {
                 c = { "clangtidy" },
                 rust = { "clippy" },
                 yaml = { "yamllint" },
-                lua = { "luacheck" },
+                lua = { "selene" },
                 sh = { "shellcheck" }, -- Bash filetype is 'sh'
                 json = { "jsonlint" },
             }
