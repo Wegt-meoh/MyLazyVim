@@ -28,4 +28,5 @@ vim.opt.smartcase = true
 
 -- status line
 vim.opt.laststatus = 3
-vim.o.statusline = "%<%f%m%r%h%w  │  %{&ft==''?'[no ft]':&ft}  │  %l:%c  %p%%/%L"
+vim.o.statusline =
+    "%<%f%m%r%h%w  │  %{&ft==''?'[no ft]':&ft}  │  %{&ff=='unix'?'LF':&ff=='dos'?'CRLF':'CR'}  │  %l:%c  %p%%/%L"
