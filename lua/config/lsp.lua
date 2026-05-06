@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
 
         -- 自动开启 inlay hints（类型提示）
-        if client and client.supports_method("textDocument/inlayHint") then
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
         end
 
