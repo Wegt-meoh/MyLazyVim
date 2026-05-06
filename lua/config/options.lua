@@ -9,11 +9,11 @@ vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
 vim.opt.expandtab = true -- 使用空格替代 Tab
 
 vim.diagnostic.config({
-    virtual_text = false, -- Disable inline text
+  virtual_text = false, -- Disable inline text
 })
 
 vim.keymap.set("n", "K", function()
-    vim.diagnostic.open_float(nil, { border = "rounded" })
+  vim.diagnostic.open_float(nil, { border = "rounded" })
 end, { noremap = true, silent = true })
 
 -- folding
@@ -29,4 +29,4 @@ vim.opt.smartcase = true
 -- status line
 vim.opt.laststatus = 3
 vim.o.statusline =
-    "%<%f%m%r%h%w  │  %{&ft==''?'[no ft]':&ft}  │  %{&ff=='unix'?'LF':&ff=='dos'?'CRLF':'CR'}  │  %l:%c  %p%%/%L"
+  "%<%f%m%r%h%w  │  %{&ft==''?'[no ft]':&ft}  │  %{&ff=='unix'?'LF':&ff=='dos'?'CRLF':'CR'}  │  %l:%c  %p%%/%L"

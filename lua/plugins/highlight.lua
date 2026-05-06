@@ -1,35 +1,35 @@
 return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function()
-            -- Add Treesitter for syntax highlighting
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "rust",
-                    "javascript",
-                    "typescript",
-                    "tsx",
-                    "html",
-                    "css",
-                    "json",
-                    "yaml",
-                    "scss",
-                    "lua",
-                    "bash",
-                    "make",
-                    "styled",
-                    "python",
-                },
-                highlight = { enable = true, additional_vim_regex_highlighting = false },
-                indent = { enable = true }, -- Auto-indent support
-                injections = { enable = true },
-                fold = { enable = true },
-                modules = {}, -- For additional Treesitter modules
-                sync_install = false, -- Install parsers synchronously
-                ignore_install = {}, -- Parsers to ignore installing
-                auto_install = false, -- Auto-install missing parsers when entering buffer
-            })
-        end,
-    },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      -- Add Treesitter for syntax highlighting
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "rust",
+          "javascript",
+          "typescript",
+          "tsx",
+          "html",
+          "css",
+          "json",
+          "yaml",
+          "scss",
+          "lua",
+          "bash",
+          "make",
+          "styled",
+          "python",
+        },
+        highlight = { enable = true, additional_vim_regex_highlighting = false },
+        indent = { enable = true }, -- Auto-indent support
+        injections = { enable = true },
+        fold = { enable = true },
+        modules = {}, -- For additional Treesitter modules
+        sync_install = false, -- Install parsers synchronously
+        ignore_install = {}, -- Parsers to ignore installing
+        auto_install = false, -- Auto-install missing parsers when entering buffer
+      })
+    end,
+  },
 }
