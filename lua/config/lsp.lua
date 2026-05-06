@@ -74,7 +74,7 @@ vim.lsp.config.lua_ls = {
     root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
     settings = {
         Lua = {
-            diagnostics = { globals = { "vim" } },
+            diagnostics = { enable = false },
             workspace = {
                 library = vim.api.nvim_get_runtime_file("", true),
                 checkThirdParty = false,

@@ -1,4 +1,6 @@
-std = "vim"
+std = "lua51"
 
 [lints]
 mixed_table="allow"
+undefined_variable = "allow"    # Just a string, not a table
+unscoped_variables = "allow"
