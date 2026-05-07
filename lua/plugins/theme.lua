@@ -1,36 +1,25 @@
+-- Define your default at the top
+local default_theme = "monokai-pro" -- Change this to switch defaults
+
 return {
   {
     "folke/tokyonight.nvim",
+    lazy = false,
     config = function()
-      -- Setup must be called before colorscheme
-      require("tokyonight").setup({
-        style = "night", -- "storm", "night", "day", "moon"
-        transparent = false, -- Enable transparent background
-        terminal_colors = true, -- Configure terminal colors
-        styles = {
-          comments = { italic = true },
-          keywords = { italic = true },
-          functions = {},
-          variables = {},
-        },
-        on_colors = function(colors)
-          -- Customize specific colors
-          -- colors.bg = "#000000" -- Change background to pure black
-          -- colors.bg_dark = "#000000"
-          -- colors.bg_float = "#1a1b26"
-          -- colors.bg_highlight = "#2c2d3a"
-          -- colors.bg_popup = "#1a1b26"
-          -- colors.bg_sidebar = "#1a1b26"
-          -- colors.bg_statusline = "#1a1b26"
-        end,
-        on_highlights = function(highlights, colors)
-          -- Override specific highlight groups
-          highlights.Visual = { bg = "#6a8bc0", fg = "#ffffff" }
-        end,
-      })
-
-      -- Apply the colorscheme after setup
-      vim.cmd.colorscheme("tokyonight")
+      require("tokyonight").setup()
+      if default_theme == "tokyonight" then
+        vim.cmd.colorscheme("tokyonight")
+      end
+    end,
+  },
+  {
+    "loctvl842/monokai-pro.nvim",
+    lazy = false,
+    config = function()
+      require("monokai-pro").setup()
+      if default_theme == "monokai-pro" then
+        vim.cmd.colorscheme("monokai-pro")
+      end
     end,
   },
 }
