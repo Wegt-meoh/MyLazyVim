@@ -37,7 +37,6 @@ return {
         html = { "htmlhint" },
         css = { "stylelint" },
         c = { "clangtidy" },
-        rust = { "clippy" },
         yaml = { "yamllint" },
         lua = { "selene" },
         sh = { "shellcheck" }, -- Bash filetype is 'sh'

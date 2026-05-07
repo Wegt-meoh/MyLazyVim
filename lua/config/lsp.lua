@@ -50,7 +50,8 @@ vim.lsp.config.rust_analyzer = {
   settings = {
     ["rust-analyzer"] = {
       checkOnSave = {
-        command = "clippy", -- 使用 clippy 进行检查
+        enable = true,
+        command = "clippy",
       },
       -- 可选：启用更多 inlay hints
       inlayHints = {
