@@ -1,3 +1,89 @@
+-- config/autocmds.lua
+local function enable_inlay_hints(bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return
+  end
+  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  vim.notify("Inlay hints enabled for buffer " .. bufnr, vim.log.levels.INFO, { title = "LSP" })
+end
+
+local function setup_inlay_hints(client, bufnr)
+  if not client.server_capabilities.inlayHintProvider then
+    return
+  end
+
+  -- 创建临时自动命令组
+  local progress_group = vim.api.nvim_create_augroup("LspProgress_" .. client.name .. "_" .. bufnr, {})
+
+  -- 设置超时保护（10秒后无论如何都尝试开启）
+  local timeout = vim.defer_fn(function()
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      vim.notify("Inlay hints enabled via timeout for " .. client.name, vim.log.levels.WARN, { title = "LSP" })
+      enable_inlay_hints(bufnr)
+    end
+    pcall(vim.api.nvim_del_augroup_by_id, progress_group)
+  end, 10000)
+
+  -- 监听 LSP 进度事件
+  vim.api.nvim_create_autocmd("LspProgress", {
+    group = progress_group,
+    buffer = bufnr,
+    callback = function(args)
+      local data = args.data
+      if data.client_id ~= client.id then
+        return
+      end
+
+      local value = data.params.value
+
+      -- 检查各种可能的完成状态
+      local is_complete = false
+
+      -- rust-analyzer: Indexing 完成
+      if value.kind == "end" and value.title == "Indexing" then
+        is_complete = true
+      end
+
+      -- 通用：workDoneProgress 完成
+      if value.kind == "end" and (value.title == "Server Started" or value.message == "Ready") then
+        is_complete = true
+      end
+
+      -- 某些 LSP 的初始化完成信号
+      if value.percentage == 100 then
+        is_complete = true
+      end
+
+      if is_complete then
+        timeout:close()
+        enable_inlay_hints(bufnr)
+        pcall(vim.api.nvim_del_augroup_by_id, progress_group)
+      end
+    end,
+  })
+end
+
+-- LspAttach 事件处理
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client then
+      setup_inlay_hints(client, args.buf)
+    end
+
+    local opts = { buffer = args.buf, remap = false }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
+  end,
+})
+
 -- 不需要再安装 "neovim/nvim-lspconfig" 插件
 -- 直接在你的 init.lua 或对应的配置文件中添加以下代码
 
@@ -133,31 +219,6 @@ vim.lsp.enable("html")
 vim.lsp.enable("cssls")
 vim.lsp.enable("jsonls")
 vim.lsp.enable("yamlls")
-
--- ============================================
--- 可选：自动开启 Inlay Hints
--- ============================================
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    -- 自动开启 inlay hints（类型提示）
-    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-      vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-    end
-
-    -- 可选：设置快捷键（虽然 Neovim 0.12 已有默认值，但可以按习惯覆盖）
-    -- 这里只列出一些常用的，你也可以完全信任默认值
-    local opts = { buffer = args.buf, remap = false }
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-    vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
-  end,
-})
 
 -- ============================================
 -- 可选：设置 LSP 日志级别（调试用）
