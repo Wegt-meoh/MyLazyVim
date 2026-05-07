@@ -3,6 +3,21 @@ return {
     "folke/noice.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
     opts = {
+      commands = {
+        history = {
+          view = "split",
+          opts = { enter = true, format = "details" },
+          filter = {
+            any = {
+              {
+                cond = function()
+                  return true
+                end,
+              },
+            },
+          },
+        },
+      },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
