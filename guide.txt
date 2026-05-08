@@ -1,9 +1,0 @@
-快捷键	功能说明	对应 LSP 方法
-grn	重命名光标下的符号（变量、函数等）	vim.lsp.buf.rename 
-grr	查找项目中所有引用当前符号的位置	vim.lsp.buf.references 
-gri	跳转到接口或抽象方法的实现处	vim.lsp.buf.implementation 
-gra	对当前光标所在位置执行代码操作（如快速修复、生成代码等）	vim.lsp.buf.code_action 
-grd	跳转到符号的定义处	vim.lsp.buf.definition 
-grD	跳转到符号的声明处（如头文件声明），与定义位置可能不同	vim.lsp.buf.declaration 
-grt	跳转到光标下变量的类型定义	vim.lsp.buf.type_definition 
-gr	这是一个前缀键，用于引导上述 grr, grn 等系列映射	- 
