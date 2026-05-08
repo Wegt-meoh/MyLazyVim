@@ -29,4 +29,4 @@ vim.opt.smartcase = true
 -- status line
 vim.opt.laststatus = 3
 vim.o.statusline =
-  "%<%f%m%r%h%w  │  %{&ft==''?'[no ft]':&ft}  │  %{&ff=='unix'?'LF':&ff=='dos'?'CRLF':'CR'}  │  %l:%c  %p%%/%L"
+  "%<%f%m%r%h%w  │ %{mode()=='n'?'NORMAL':mode()=='i'?'INSERT':mode()=='v'?'VISUAL':mode()=='V'?'V-LINE':mode()=='c'?'COMMAND':'OTHER'} │  %{&ft==''?'[no ft]':&ft}  │  %{&ff=='unix'?'LF':&ff=='dos'?'CRLF':'CR'}  │  %l:%c  %p%%/%L"
