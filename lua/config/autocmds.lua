@@ -19,3 +19,17 @@
 vim.api.nvim_create_user_command("W", function()
   vim.cmd("noautocmd write")
 end, { force = true, desc = "Save without formatting/autocmds" })
+
+-- lua/config/options.lua or anywhere in your config
+vim.api.nvim_create_autocmd("ModeChanged", {
+  pattern = "*:*",
+  callback = function()
+    local mode = vim.fn.mode()
+    -- Check if we're in any visual mode
+    if mode == "v" or mode == "V" or mode == "\22" then
+      vim.opt.cursorline = false
+    else
+      vim.opt.cursorline = true
+    end
+  end,
+})
