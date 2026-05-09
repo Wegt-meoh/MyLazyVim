@@ -23,6 +23,7 @@ return {
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#3d3d33" })
         vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f6ae05", bold = true })
         vim.api.nvim_set_hl(0, "NonText", { fg = "#006400" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
       end
     end,
   },
