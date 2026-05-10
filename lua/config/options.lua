@@ -11,7 +11,7 @@ vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
 vim.opt.expandtab = true -- 使用空格替代 Tab
 
 vim.diagnostic.config({
-  virtual_text = false, -- Disable inline text
+  virtual_text = true,
 })
 
 -- folding
