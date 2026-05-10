@@ -16,6 +16,9 @@ end, { desc = "Next diagnostic" })
 map("n", "[e", function()
   vim.diagnostic.jump({ count = -1 })
 end, { desc = "Previous diagnostic" })
+map("n", "K", function()
+  vim.diagnostic.open_float(nil, { border = "rounded" })
+end, { noremap = true, silent = true })
 
 -- LazyGit UI
 map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "打开 LazyGit" })

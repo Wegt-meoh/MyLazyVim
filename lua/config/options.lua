@@ -14,10 +14,6 @@ vim.diagnostic.config({
   virtual_text = false, -- Disable inline text
 })
 
-vim.keymap.set("n", "K", function()
-  vim.diagnostic.open_float(nil, { border = "rounded" })
-end, { noremap = true, silent = true })
-
 -- folding
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
