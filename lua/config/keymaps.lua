@@ -30,10 +30,6 @@ map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 map("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
 map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
 
--- Quick fix list
-map("n", "[l", ":colder<CR>", { noremap = true, silent = true, desc = "Previous quickfix list" })
-map("n", "]l", ":cnewer<CR>", { noremap = true, silent = true, desc = "Next quickfix list" })
-
 -- markdown preview
 map("n", "<leader>mp", ":MarkdownPreview<CR>", { noremap = true, silent = true, desc = "MarkdownPreview" })
 map("n", "<leader>ms", ":MarkdownPreviewStop<CR>", { noremap = true, silent = true, desc = "MarkdownPreviewStop" })
