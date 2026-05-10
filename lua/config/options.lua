@@ -5,6 +5,7 @@ vim.opt.cursorline = true
 vim.api.nvim_set_hl(0, "GitsignsCurrentLineBlame", { fg = "#ff79c6", bg = "#282a36" })
 
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.tabstop = 4 -- 设定 Tab 宽度为 4
 vim.opt.shiftwidth = 4 -- 自动缩进的宽度也是 4
 vim.opt.expandtab = true -- 使用空格替代 Tab
