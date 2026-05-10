@@ -70,6 +70,7 @@ vim.lsp.config.rust_analyzer = {
         enable = true,
         command = "clippy",
       },
+      diagnostics = { enable = false },
       inlayHints = {
         bindingModeHints = { enable = true },
         chainingHints = { enable = true },
