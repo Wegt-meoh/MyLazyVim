@@ -7,6 +7,16 @@ local map = vim.keymap.set
 map("n", "]c", "<cmd>Gitsigns next_hunk<CR>", { desc = "跳到下一个 Git 变更" })
 map("n", "[c", "<cmd>Gitsigns prev_hunk<CR>", { desc = "跳到上一个 Git 变更" })
 
+-- diagnostic
+map("n", "[d", "<Nop>")
+map("n", "]d", "<Nop>")
+map("n", "]e", function()
+  vim.diagnostic.jump({ count = 1 })
+end, { desc = "Next diagnostic" })
+map("n", "[e", function()
+  vim.diagnostic.jump({ count = -1 })
+end, { desc = "Previous diagnostic" })
+
 -- LazyGit UI
 map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "打开 LazyGit" })
 
