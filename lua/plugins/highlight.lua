@@ -9,6 +9,7 @@ return {
           "rust",
           "javascript",
           "typescript",
+          "jsdoc",
           "tsx",
           "html",
           "css",
